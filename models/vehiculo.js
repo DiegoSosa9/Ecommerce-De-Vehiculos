@@ -28,7 +28,8 @@ const VehiculoSchema = Schema({
     category: {
         type: String, 
         require: true
-    }
+    },
+    images: [String]
 });
 
 module.exports = model("Auto", VehiculoSchema, "auto");

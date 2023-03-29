@@ -1,6 +1,7 @@
 const opinion = require ("../models/opinion");
 const vehiculo = require ("../models/vehiculo");
 const validator = require("validator");
+const multer = require("multer");
 
 //Obtenemos todos los vehiculos
 const getVehiculos = async (req,res) => {
@@ -122,11 +123,24 @@ const postComment = async (req,res) => {
 
 }
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads');
+    },
+    filename: function (req, file, cb){
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
+})
+
+const upload = multer({ storage: storage });
+
+
 module.exports = {
     getVehiculos,
     getOpinion,
     getVehiculo,
     postVehiculo,
     updateComment,
-    postComment
+    postComment,
+    upload
 }
